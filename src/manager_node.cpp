@@ -8,13 +8,9 @@ int main (int argc, char **argv)
     Manager nodeManager(nh);
     Manager::numSpawned = 0;
 
-    char spawnServiceName [64] = "/lynxmotion_al5d/spawn_brick";
-    char killServiceName [64] = "/lynxmotion_al5d/kill_brick";
     char resetServiceName [64] = "/lynxmotion_al5d/reset";
     char clearServiceName [64] = "/lynxmotion_al5d/clear";
 
-    ros::ServiceServer spawnService = nh.advertiseService(spawnServiceName, &Manager::spawnBrick, &nodeManager);
-    ros::ServiceServer killService = nh.advertiseService(killServiceName, &Manager::killBrick, &nodeManager);
     ros::ServiceServer clearService = nh.advertiseService(clearServiceName, &Manager::clear, &nodeManager);
     ros::ServiceServer resetService = nh.advertiseService(resetServiceName, &Manager::reset, &nodeManager);
 
