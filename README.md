@@ -1,3 +1,5 @@
+**Currently a WIP**
+
 # The Lynxmotion AL5D robotic arm simulator
 This package exposes a simulated version of the [Lynxmotion AL5D robot arm](http://www.lynxmotion.com/c-130-al5d.aspx) that can be used for various simulations exercises. The developed robot model has been implemented by reproducing as accurately as possible, the physical properties as well as the kinematics of the physical robot. The current package provides all the tools to visualize the robot in [Rviz](https://github.com/ros-visualization/rviz) and run a simulation in [Gazebo](http://gazebosim.org/). It comes with a set of services and publishers useful to control the simulation world and ready to be integrated in any [language supported by ROS](http://wiki.ros.org/ROS/Introduction#Goals) (See [section #3](#technical-reference-documentation)).
 
@@ -20,12 +22,8 @@ See below the two (at the left side, the physical robotic arm, at the right side
     3. [Setting joint positions](#setting-joint-positions)
     4. [Accessing the joint states](#accessing-the-joint-states)
     5. [Accessing the captured image](#accessing-the-captured-image)
-    6. [Spawning bricks](#spawning-bricks)
-    7. [Accessing the pose of a brick](#accessing-the-pose-of-a-brick)
-    8. [Killing bricks](#killing-bricks)
     9. [Clear the workspace](#clear-the-workspace)
     10. [Reset the workspace](#reset-the-workspace)
-    11. [Teleport a brick](#teleport-a-brick)
     12. [Move to a relative pose](#move-to-a-relative-pose)
 5. [How to get additional help](#how-to-get-additional-help)
 
@@ -175,39 +173,6 @@ In the window that appears, select the topic `/lynxmotion_al5d/external_vision/i
 
 ![Visualization of the image captured by the camera sensor](screenshots/rqt_image_view.png?raw=true "Image captured by the camera sensor linked to the simulator")
 
-#### Spawning bricks
-
-To spawn a brick a position (x, y, z) specified in metres from the center of the world and orientation (roll, pitch, yaw) specified in radians using the XYZ rotation convention (i.e roll, pitch and yaw are respectively rotations around the x, y and z axis), you should run the following command:
-
-`rosrun lynxmotion_al5d_description spawn_brick -c <color> [-n <name> -x <x> -y <y> -z <z> -R <roll> -P <pitch> -Y <yaw>]`.
-
-For example, the following command spawns a red brick in the middle of the camera's field of view (0, 0.170, 0) with no rotations.
-
-`rosrun lynxmotion_al5d_description spawn_brick -c red -y 0.170`
-
-This second example create a **blue** brick named `mybrick` at position (0.1, 0.1, 0.1) with no rotation.
-
-`rosrun lynxmotion_al5d_description spawn_brick -n mybrick -c red -x 0.1 -y 0.1 -z 0.1`
-
-Note: Only the color is a required parameter and the user can feel free to put the only values that are different than zero.
-
-#### Accessing the pose of a brick
-
-In order to get the pose of a particular brick, the syntax of the command to execute from a command line terminal is as below.
-
-`rostopic echo /lynxmotion_al5d/<brick name>/pose`
-
-For example, the command `rostopic echo /lynxmotion_al5d/brick1/pose` will display the position and orientation of brick1 if it exists.
-
-
-#### Killing bricks
-
-For killing a brick that is in the workspace, the command to use is:
-
-`rosrun lynxmotion_al5d_description kill_brick <brick name>`
-
-For instance, running `rosrun lynxmotion_al5d_description kill_brick brick1` will remove brick1 from the workspace if it is present.
-
 #### Clear the workspace
 
 For clearing the workspace, the following command should be run from a terminal:
@@ -219,16 +184,6 @@ For clearing the workspace, the following command should be run from a terminal:
 For resetting the workspace, the following command should be run from a terminal:
 
 `rosservice call /lynxmotion_al5d/reset`
-
-#### Teleport a brick
-
-To move a specific robot to an absolute position, the command to be executed follows the format:
-
-`rosservice call /lynxmotion_al5d/<brick name>/teleport_absolute '{pose: {position: {x: <x>, y: <y>, z: <z>}, orientation: {roll: <roll>, pitch: <pitch>, yaw: <yaw>}}}'`
-
-For example, the following command moves the brick1 to the position (0 0.200 0) with a 90 degrees (~1.5708 radians) rotation around the z-axis
-
-`rosservice call /lynxmotion_al5d/brick1/teleport_absolute '{pose: {position: {x: 0, y: 0.2, z: 0}, orientation: {roll: 0, pitch: 0, yaw: 1.5708}}}'`
 
 #### Move to a relative pose
 
