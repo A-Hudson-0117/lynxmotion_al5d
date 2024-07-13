@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 
-<robot name="lynxmotion_al5d" xmlns:xacro="http://www.ros.org/wiki/xacro"> 
-    
+<robot name="lynxmotion_al5d">
+
     <xacro:include filename="$(find lynxmotion_al5d_description)/urdf/lynxmotion_al5d_properties.urdf.xacro" />
 
     <!-- Base link comprising the board behind the robot and the cylinder at its bottom -->
@@ -11,17 +11,22 @@
                 <mesh filename="package://lynxmotion_al5d_description/meshes/robot_parts/support.dae" />
             </geometry>
             <origin rpy="0 0 0" xyz="0 0 0" />
-        </visual>   
+        </visual>
         <collision>
             <geometry>
                 <mesh filename="package://lynxmotion_al5d_description/meshes/robot_parts/support.dae" />
             </geometry>
             <origin rpy="0 0 0" xyz="0 0 0" />
-        </collision>   
+        </collision>
         <xacro:inertial_matrix mass="${base_mass + board_mass}" ixx="3.6565e-7" ixy="-3.72e-9" ixz="1e-6" iyy="9.404e-8" iyz="4.375e-8" izz="4.1776e-7" xyz="0.000585 0.0602746 0.0170628" />
     </link>
-    <gazebo reference="robot_support" />
-
+    <gazebo reference="robot_support">
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <xacro:unless value="${robot_namespace == ''}">
+                <robotNamespace>($robot_namespace)</robotNamespace>
+            </xacro:unless>
+        </plugin>
+    </gazebo>
     <link name="robot_base_cylinder">
         <visual>
             <geometry>
@@ -54,7 +59,7 @@
         </collision>
         <xacro:inertial_matrix_bis mass="${top_box_mass}" />
     </link>
-    <gazebo reference="robot_base_top_box" />   
+    <gazebo reference="robot_base_top_box" />
 
     <link name="shoulder">
         <visual>
@@ -176,26 +181,8 @@
         <xacro:inertial_matrix_box mass="0.01" width="0.01" height="0.01" depth="0.01" />
     </link>
     <gazebo reference="gripper_mov" />
-
-    <link name="camera_link">
-        <visual>
-            <geometry>
-                <box size="0.0001 0.0001 0.0001" />
-            </geometry>
-            <origin rpy="0 0 0" xyz="0 0 0" />
-            <material name="transparent">Gazebo/GreyTransparent</material>
-        </visual>
-        <collision>
-            <geometry>
-                <box size="0.0001 0.0001 0.0001" />
-            </geometry>
-            <origin rpy="0 0 0" xyz="0 0 0" />
-        </collision>
-        <xacro:inertial_matrix_bis mass="0.0005" />
-    </link>
-
     <!-- Adding joints -->
-   <joint name="Joint1" type="revolute">
+    <joint name="Joint1" type="revolute">
         <parent link="robot_support" />
         <child link="robot_base_cylinder" />
         <axis xyz="0 0 -1" />
@@ -213,9 +200,9 @@
     <joint name="Joint2" type="revolute">
         <parent link="robot_base_top_box" />
         <child link="shoulder" />
-        <axis xyz="1 0 0"/>
+        <axis xyz="1 0 0" />
         <origin xyz="0 0.02 0.07" />
-        <limit effort="100" velocity="3" lower="0" upper="${PI}" />
+        <limit effort="100" lower="0" upper="${PI}" velocity="3" />
         <dynamics damping="1.0" friction="0.8" />
     </joint>
 
@@ -224,7 +211,7 @@
         <child link="elbow" />
         <axis xyz="1 0 0" />
         <origin xyz="0 ${shoulder_to_elbow} 0" />
-        <limit effort="100" velocity="3" lower="${-PI}" upper="0" />
+        <limit effort="100" lower="${-PI}" upper="0" velocity="3" />
         <dynamics damping="1.0" friction="0.8" />
     </joint>
 
@@ -232,17 +219,17 @@
         <parent link="elbow" />
         <child link="wrist" />
         <axis xyz="1 0 0" />
-        <origin xyz="0 0.181 0.005" rpy="0 0 0"/>
-        <limit effort="40" velocity="3" lower="${-PI/2}" upper="${PI/2}" />
+        <origin rpy="0 0 0" xyz="0 0.181 0.005" />
+        <limit effort="40" lower="${-PI/2}" upper="${PI/2}" velocity="3" />
         <dynamics damping="5.0" friction="0.08" />
     </joint>
 
-   <joint name="Joint5" type="revolute">
+    <joint name="Joint5" type="revolute">
         <parent link="wrist" />
         <child link="gripper" />
         <axis xyz="0 -1 0" />
-        <origin xyz="0 0.04 0" rpy="0 0 ${PI}" />
-        <limit effort="100" velocity="3" lower="${-PI}" upper="${PI}" />
+        <origin rpy="0 0 ${PI}" xyz="0 0.04 0" />
+        <limit effort="100" lower="${-PI}" upper="${PI}" velocity="3" />
         <dynamics damping="1.0" friction="0.8" />
     </joint>
 
@@ -250,17 +237,17 @@
         <parent link="gripper" />
         <child link="right_finger" />
         <origin xyz="-0.005 -0.015 0" />
-        <limit effort="100" velocity="0.1" lower="0" upper="${gripper_base_width/2}" />
+        <limit effort="100" lower="0" upper="${gripper_base_width/2}" velocity="0.1" />
         <mimic joint="Gripper" multiplier="-0.5" offset="${gripper_base_width/2}" />
         <dynamics damping="1.0" friction="0.16" />
-    </joint> 
+    </joint>
 
-   <joint name="left_finger_joint" type="prismatic">
+    <joint name="left_finger_joint" type="prismatic">
         <parent link="gripper" />
         <child link="left_finger" />
         <origin xyz="0.005 -0.015 0" />
         <axis xyz="-1 0 0" />
-        <limit effort="100" velocity="0.1" lower="0" upper="${gripper_base_width/2}" />
+        <limit effort="100" lower="0" upper="${gripper_base_width/2}" velocity="0.1" />
         <!-- Added an offset to fix issues in Rviz -->
         <mimic joint="right_finger_joint" offset="-0.0025" />
         <dynamics damping="1.0" friction="0.16" />
@@ -271,7 +258,7 @@
         <parent link="gripper" />
         <child link="gripper_mov" />
         <origin xyz="0.01 0  0" />
-        <limit lower="0" upper="${gripper_base_width}" effort="10" velocity="0.1" />
+        <limit effort="10" lower="0" upper="${gripper_base_width}" velocity="0.1" />
         <axis xyz="-1 0 0" />
         <dynamics damping="5.0" />
         <!-- <dynamics friction="0.42" /> -->
@@ -287,47 +274,30 @@
 
     <!-- ros_control plugin -->
     <gazebo>
-        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+        <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
             <robotNamespace>/lynxmotion_al5d</robotNamespace>
             <legacyModeNS>true</legacyModeNS>
         </plugin>
     </gazebo>
-
+   
 
     <!-- Setting the mimic joints plugin -->
     <xacro:mimic_joint_plugin_gazebo name_prefix="finger_right"
-    parent_joint="Gripper" mimic_joint="right_finger_joint" multiplier="-0.5" 
-        has_pid="true" max_effort="10.0" offset="${gripper_base_width/2}" /> 
+        parent_joint="Gripper" 
+        mimic_joint="right_finger_joint" 
+        multiplier="-0.5" 
+        has_pid="true" 
+        max_effort="10.0" 
+        offset="${gripper_base_width/2}"
+    /> 
 
     <xacro:mimic_joint_plugin_gazebo name_prefix="finger_left"
-    parent_joint="Gripper" has_pid="true"  mimic_joint="left_finger_joint" multiplier="-0.5" max_effort="10.0" offset="${gripper_base_width/2}" /> 
+        parent_joint="Gripper" 
+        has_pid="true"  
+        mimic_joint="left_finger_joint" 
+        multiplier="-0.5" 
+        max_effort="10.0" 
+        offset="${gripper_base_width/2}" 
+    /> 
 
-    <gazebo reference="camera_link">
-        <sensor name="external_camera" type="camera">
-            <update_rate>1.0</update_rate>
-            <camera name="camera_top">
-                <horizontal_fov>1.2</horizontal_fov>
-                <pose>0 0 0 3.1415 1.5708 -1.5708</pose>
-                <image>
-                    <width>640</width>
-                    <height>480</height>
-                    <format>R8G8B8</format>
-                </image>
-                <clip>
-                    <near>0.01</near>
-                    <far>0.3</far>
-                </clip>
-            </camera>
-
-            <plugin filename="libgazebo_ros_camera.so" name="camera_controller">
-                <robotNamespace>/lynxmotion_al5d</robotNamespace>
-                <alwaysOn>true</alwaysOn>
-                <updateRate>1.0</updateRate>
-                <cameraName>external_vision</cameraName>
-                <imageToPIcName>image_raw</imageToPIcName>
-                <cameraInfoToPIcName>camera_info</cameraInfoToPIcName>
-                <frameName>camera_link</frameName>
-            </plugin>
-        </sensor>
-    </gazebo>
 </robot>
