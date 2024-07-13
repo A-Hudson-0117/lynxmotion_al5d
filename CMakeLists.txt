@@ -29,8 +29,6 @@ add_message_files(
 
 add_service_files(
   FILES
-  SpawnBrick.srv
-  KillBrick.srv
   TeleportAbsolute.srv
   TeleportRelative.srv
 )
@@ -45,26 +43,11 @@ catkin_package(
   CATKIN_DEPENDS message_runtime roscpp roslib
 )
 
-add_executable(${PROJECT_NAME}_manager_node src/brick.cpp src/manager.cpp src/manager_node.cpp)
+add_executable(${PROJECT_NAME}_manager_node src/manager.cpp src/manager_node.cpp)
 add_dependencies(${PROJECT_NAME}_manager_node ${PROJECT_NAME}_gencpp)
-add_executable(${PROJECT_NAME}_spawn_brick src/spawn_brick.cpp)
-add_dependencies(${PROJECT_NAME}_spawn_brick ${PROJECT_NAME}_gencpp)
-add_executable(${PROJECT_NAME}_kill_brick src/kill_brick.cpp)
-add_dependencies(${PROJECT_NAME}_kill_brick ${PROJECT_NAME}_gencpp)
 
 set_target_properties(${PROJECT_NAME}_manager_node PROPERTIES OUTPUT_NAME manager_node PREFIX "")
-set_target_properties(${PROJECT_NAME}_spawn_brick PROPERTIES OUTPUT_NAME spawn_brick PREFIX "")
-set_target_properties(${PROJECT_NAME}_kill_brick PROPERTIES OUTPUT_NAME kill_brick PREFIX "")
 
 target_link_libraries(${PROJECT_NAME}_manager_node
   ${catkin_LIBRARIES}
 )
-
-target_link_libraries(${PROJECT_NAME}_spawn_brick
-  ${catkin_LIBRARIES}
-)
-
-target_link_libraries(${PROJECT_NAME}_kill_brick
-  ${catkin_LIBRARIES}
-)
-

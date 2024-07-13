@@ -14,9 +14,6 @@ class Manager
 {
 public:
     Manager(ros::NodeHandle& n);
-    static int numSpawned;
-    bool clear(std_srvs::Empty::Request &req,
-                std_srvs::Empty::Response &res);
     bool reset(std_srvs::Empty::Request &req,
                 std_srvs::Empty::Response &res);
 private:
