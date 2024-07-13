@@ -2,16 +2,11 @@
 <COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
   <asset>
     <contributor>
-      <author/>
+      <author>term0117</author>
       <authoring_tool>FBX COLLADA exporter</authoring_tool>
-      <comments/>
     </contributor>
     <created>2020-06-11T15:15:48Z</created>
-    <keywords/>
-    <modified>2020-06-11T15:15:48Z</modified>
-    <revision/>
-    <subject/>
-    <title/>
+    <modified>2024-04-18T21:20:00Z</modified>
     <unit meter="1.000000" name="centimeter"/>
     <up_axis>Z_UP</up_axis>
   </asset>
