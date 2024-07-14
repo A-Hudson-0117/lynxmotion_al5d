@@ -1,4 +1,4 @@
-/gazebo_ros_control:
+/lynxmotion_al5d/gazebo_ros_control:
     pid_gains:
     #   Pid values removed for more stable movement
         Joint1: {p: 1000.0, i: 0.0, d: 200.0, antiwindup: true}

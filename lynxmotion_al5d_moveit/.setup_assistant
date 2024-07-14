@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: lynxmotion_al5d_description
+    relative_path: urdf/lynxmotion_al5d.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/lynxmotion_al5d.srdf
+  CONFIG:
+    author_name: a-hudson-0117
+    author_email: a-hudson-0117@no-reply.com
+    generated_timestamp: 1720969756

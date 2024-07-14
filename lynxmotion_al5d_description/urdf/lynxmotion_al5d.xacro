@@ -259,40 +259,4 @@
         <!-- <dynamics friction="0.42" /> -->
     </joint>
     
-    <!-- Setting transmissions -->
-    <xacro:transmission_block joint_name="Joint1" idx="1" />
-    <xacro:transmission_block joint_name="Joint2" idx="2" />
-    <xacro:transmission_block joint_name="Joint3" idx="3" />
-    <xacro:transmission_block joint_name="Joint4" idx="4" />
-    <xacro:transmission_block joint_name="Joint5" idx="5" />
-    <xacro:transmission_block joint_name="Gripper" idx="6" />
-
-    <!-- ros_control plugin -->
-    <gazebo>
-        <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
-            <robotNamespace>/lynxmotion_al5d</robotNamespace>
-            <legacyModeNS>true</legacyModeNS>
-        </plugin>
-    </gazebo>
-   
-
-    <!-- Setting the mimic joints plugin -->
-    <xacro:mimic_joint_plugin_gazebo name_prefix="finger_right"
-        parent_joint="Gripper" 
-        mimic_joint="right_finger_joint" 
-        multiplier="-0.5" 
-        has_pid="true" 
-        max_effort="10.0" 
-        offset="${gripper_base_width/2}"
-    /> 
-
-    <xacro:mimic_joint_plugin_gazebo name_prefix="finger_left"
-        parent_joint="Gripper" 
-        has_pid="true"  
-        mimic_joint="left_finger_joint" 
-        multiplier="-0.5" 
-        max_effort="10.0" 
-        offset="${gripper_base_width/2}" 
-    /> 
-    
 </robot>
