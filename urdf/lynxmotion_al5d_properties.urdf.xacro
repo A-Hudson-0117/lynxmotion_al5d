@@ -105,9 +105,12 @@
    <!-- Copied from https://github.com/mintar/mimic_joint_gazebo_tutorial/blob/kinetic/urdf/mimic_joint_gazebo_tutorial.urdf.xacro --> 
    <xacro:macro name="mimic_joint_plugin_gazebo" params="name_prefix parent_joint mimic_joint has_pid:=false multiplier:=1.0 offset:=0 sensitiveness:=0.0 max_effort:=1.0 robot_namespace:=''">
     <gazebo>
-      <plugin name="${name_prefix}mimic_joint_plugin" filename="libroboticsgroup_gazebo_mimic_joint_plugin.so">
+      <plugin name="${name_prefix}_mimic_joint_plugin" filename="libroboticsgroup_gazebo_mimic_joint_plugin.so">
         <joint>${parent_joint}</joint>
         <mimicJoint>${mimic_joint}</mimicJoint>
+        <xacro:unless value="${robot_namespace == ''}">
+          <robotNamespace>($robot_namespace)</robotNamespace>
+        </xacro:unless>
         <xacro:if value="${has_pid}">                     
           <hasPID />
         </xacro:if>
@@ -115,21 +118,19 @@
         <offset>${offset}</offset>
         <sensitiveness>${sensitiveness}</sensitiveness>   
         <maxEffort>${max_effort}</maxEffort>              
-        <xacro:unless value="${robot_namespace == ''}">
-          <robotNamespace>($robot_namespace)</robotNamespace>
-        </xacro:unless>
       </plugin>
     </gazebo>
   </xacro:macro>
 
-    <xacro:macro name="transmission_block" params="joint_name">
-        <transmission name="tran1">
+    <xacro:macro name="transmission_block" params="joint_name idx">
+        <transmission name="tran${idx}">
             <type>transmission_interface/SimpleTransmission</type>
             <joint name="${joint_name}">
                 <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
             </joint>
-            <actuator name="motor1">
+            <actuator name="motor${idx}">
                 <mechanicalReduction>1</mechanicalReduction>
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             </actuator>
         </transmission>
    </xacro:macro>

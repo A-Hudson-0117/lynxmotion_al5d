@@ -20,13 +20,8 @@
         </collision>
         <xacro:inertial_matrix mass="${base_mass + board_mass}" ixx="3.6565e-7" ixy="-3.72e-9" ixz="1e-6" iyy="9.404e-8" iyz="4.375e-8" izz="4.1776e-7" xyz="0.000585 0.0602746 0.0170628" />
     </link>
-    <gazebo reference="robot_support">
-        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-            <xacro:unless value="${robot_namespace == ''}">
-                <robotNamespace>($robot_namespace)</robotNamespace>
-            </xacro:unless>
-        </plugin>
-    </gazebo>
+    <gazebo reference="robot_support" />
+
     <link name="robot_base_cylinder">
         <visual>
             <geometry>
@@ -265,12 +260,12 @@
     </joint>
     
     <!-- Setting transmissions -->
-    <xacro:transmission_block joint_name="Joint1"/>
-    <xacro:transmission_block joint_name="Joint2"/>
-    <xacro:transmission_block joint_name="Joint3"/>
-    <xacro:transmission_block joint_name="Joint4"/>
-    <xacro:transmission_block joint_name="Joint5"/>
-    <xacro:transmission_block joint_name="Gripper"/>
+    <xacro:transmission_block joint_name="Joint1" idx="1" />
+    <xacro:transmission_block joint_name="Joint2" idx="2" />
+    <xacro:transmission_block joint_name="Joint3" idx="3" />
+    <xacro:transmission_block joint_name="Joint4" idx="4" />
+    <xacro:transmission_block joint_name="Joint5" idx="5" />
+    <xacro:transmission_block joint_name="Gripper" idx="6" />
 
     <!-- ros_control plugin -->
     <gazebo>
@@ -299,5 +294,5 @@
         max_effort="10.0" 
         offset="${gripper_base_width/2}" 
     /> 
-
+    
 </robot>
