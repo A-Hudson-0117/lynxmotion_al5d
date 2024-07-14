@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 
-<robot name="lynxmotion_al5d">
+<robot name="lynxmotion_al5d" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
     <xacro:include filename="$(find lynxmotion_al5d_description)/urdf/lynxmotion_al5d_properties.urdf.xacro" />
 
