@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <package format="2">
 
   <name>lynxmotion_al5d</name>
@@ -5,8 +6,8 @@
   <description>
      A metapackage for all of the configuration and launch files for using the lynxmotion_al5d
   </description>
-  <author email="a-hudson-0117@no-reply.com">a-hudson-0117</author>
-  <maintainer email="a-hudson-0117@no-reply.com">a-hudson-0117</maintainer>
+  <author email="a-hudson-0117@github.no-reply.com">a-hudson-0117</author>
+  <maintainer email="a-hudson-0117@github.no-reply.com">a-hudson-0117</maintainer>
 
   <license>BSD</license>
 
@@ -16,6 +17,11 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
+  <!-- real requirements -->
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>roscpp</exec_depend>  
+
+  <!-- meta packages -->
   <exec_depend>lynxmotion_al5d_description</exec_depend>
   <exec_depend>lynxmotion_al5d_moveit</exec_depend>
 
