@@ -1,9 +1,0 @@
-[submodule "geometric_shapes"]
-	path = geometric_shapes
-	url = https://github.com/moveit/geometric_shapes
-[submodule "roboticsgroup_gazebo_plugins"]
-	path = roboticsgroup_gazebo_plugins
-	url = https://github.com/roboticsgroup/roboticsgroup_gazebo_plugins
-[submodule "moveit_task_constructor"]
-	path = moveit_task_constructor
-	url = https://github.com/moveit/moveit_task_constructor

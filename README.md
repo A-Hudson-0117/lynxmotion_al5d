@@ -7,7 +7,7 @@ In addition, the package provides a set of [lego bricks](https://www.lego.com/en
 
 See below the two (at the left side, the physical robotic arm, at the right side, the simulated robot)
 
-<img src="lynxmotion_al5d/screenshots/robotic-arm.png" width="49%" hspace="5px"/> <img src="lynxmotion_al5d/screenshots/simulated-robot.png" width="49%" style="float: right;"/>
+<img src="screenshots/robotic-arm.png" width="49%" hspace="5px"/> <img src="screenshots/simulated-robot.png" width="49%" style="float: right;"/>
 
 ## Table of contents
 1. [Installation](#installation)
@@ -54,7 +54,7 @@ catkin_make
 The robot model has been built using 3D models collected from [GrabCad](https://grabcad.com/library/al5d-robotic-arm-1) and the [Lynxmotion website](http://www.lynxmotion.com/s-5-ses-3d-models.aspx). This has allowed the model to have a very realistic look matching the physical setting. It integrates a set of 6 joints that can be controlled for achieving different goals positions and plans. The matching of the joints to the physical robot are shown below:
 
 
-![Simulated robot joints positions mapping](lynxmotion_al5d/screenshots/joints_mapping.png?raw=true "Mapping the robot joints")
+![Simulated robot joints positions mapping](screenshots/joints_mapping.png?raw=true "Mapping the robot joints")
 
 The range of the values acceptable by the joints are as follows:
 
@@ -124,13 +124,13 @@ The Rviz tool allows to visualize the robot model and comes with a GUI tool to s
 
 This will open up a window as shown below:
 
-![Overview of the simulated robot in Rviz](lynxmotion_al5d/screenshots/rviz.png?raw=true "Overview of the simulated robot in Rviz")
+![Overview of the simulated robot in Rviz](screenshots/rviz.png?raw=true "Overview of the simulated robot in Rviz")
 
 Beside the Rviz window, a small window identifable by a question mark in the launch bar will also appear.
 
 There you will see the different joints of the robot and play around to move the robot to different places. Here is a screenshot of the aforementioned window.
 
-![Overview of the simulated robot in Rviz](lynxmotion_al5d/screenshots/publisher_window.png?raw=true "Joint Publisher GUI")
+![Overview of the simulated robot in Rviz](screenshots/publisher_window.png?raw=true "Joint Publisher GUI")
 
 The slides provided can be used to see how the robot operates when various values are being sent to it.
 
@@ -141,7 +141,7 @@ One limitation of Rviz is that it is just a visualization tool and does not prov
 
 This will open up a Gazebo with the robot spawned at the center of an empty world as seen on the image below. 
 
-![Lynxmotion AL5D spawned in an empty Gazebo simulation world](lynxmotion_al5d/screenshots/robot_in_gazebo.png?raw=true "Overview of the simulated robot in Gazebo")
+![Lynxmotion AL5D spawned in an empty Gazebo simulation world](screenshots/robot_in_gazebo.png?raw=true "Overview of the simulated robot in Gazebo")
 
 Beside opening the Gazebo window, issuing the previous command also creates a set of ROS topics for the joints and also the external camera added to the robot model. You can view the topics by running the following command in a terminal.
 
@@ -171,7 +171,7 @@ To view the images captured by the external vision sensor added to the model. ru
 
 In the window that appears, select the topic `/lynxmotion_al5d/external_vision/image_raw` in the dropdown to visualize the images captured by the robot. The image captured by the camera when the robot is in the  (0, 0, 0, 0, 0, 0) position is displayed below.
 
-![Visualization of the image captured by the camera sensor](lynxmotion_al5d/screenshots/rqt_image_view.png?raw=true "Image captured by the camera sensor linked to the simulator")
+![Visualization of the image captured by the camera sensor](screenshots/rqt_image_view.png?raw=true "Image captured by the camera sensor linked to the simulator")
 
 #### Clear the workspace
 

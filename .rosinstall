@@ -6,7 +6,11 @@
     local-name: geometric_shapes
     uri: https://github.com/moveit/geometric_shapes.git
     version: noetic-devel
-- git
-    local-name: moveit_grasps
-    uri: https://github.com/moveit/moveit_grasps.git
-    version: noetic-devel
+- git:
+    local-name: moveit_task_constructor
+    uri: https://github.com/moveit/moveit_task_constructor.git
+    version: master
+- git:
+    local-name: roboticsgroup_gazebo_plugins
+    uri: https://github.com/roboticsgroup/roboticsgroup_gazebo_plugins.git
+    version: master
